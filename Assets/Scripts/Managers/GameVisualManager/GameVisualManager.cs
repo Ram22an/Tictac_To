@@ -1,0 +1,48 @@
+using Unity.Netcode;
+using UnityEngine;
+
+public class GameVisualManager : NetworkBehaviour
+{
+    private const float GridSize = 2;
+    [SerializeField] Transform CrossPrefab, CirclePrefab;
+    private void Start()
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.OnClickedOnGridPosition += GameManager_OnClickedOnGridPosition;
+        }
+        else
+        {
+            Debug.LogError("GameManager.instance is null in GameVisualManager. Make sure GameManager is in the scene and initializes before this script.");
+        }
+    }
+
+
+    public void GameManager_OnClickedOnGridPosition(object sender,GameManager.OnClickedOnGridPositionEventArgs e)
+    {
+        Debug.Log("GameManager_OnClickedOnGridPosition");
+        SpawnObjectRpc(e.Classx, e.Classy);
+    }
+    [Rpc(SendTo.Server)]
+    public void SpawnObjectRpc(int x,int y)
+    {
+        Debug.Log("Spawn Object");
+        Transform Prefab;
+        switch (GameManager.instance.GetLocalPlayerType())
+        {
+            default:
+            case GameManager.PlayerType.Cross:
+                Prefab = CrossPrefab;
+                break;
+            case GameManager.PlayerType.Circle:
+                Prefab = CirclePrefab;
+                break;
+        }
+        Transform SpawnedObject = Instantiate(Prefab, GetGridWorldPosition(x,y), Quaternion.identity);
+        SpawnedObject.GetComponent<NetworkObject>().Spawn(true);
+    }
+    public Vector2 GetGridWorldPosition(int x,int y)
+    {
+        return new Vector2(-GridSize+x*GridSize,-GridSize+y*GridSize);
+    }
+}
