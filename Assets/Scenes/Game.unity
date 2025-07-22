@@ -689,6 +689,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   CrossPrefab: {fileID: 1373310511375841434, guid: e6f2fb32c5b03f94481f08554dadbfd3, type: 3}
   CirclePrefab: {fileID: 1373310511375841434, guid: 294851e353759674cb4fead217bf5c0b, type: 3}
+  LineCompletePrefab: {fileID: 1357857432397795460, guid: fbe5758b7a396dd47a1326afe15ee2e4, type: 3}
 --- !u!114 &374213864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,6 +2032,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc71206e5fb71fe4a93ad857ca521ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartHostButton: {fileID: 23676059}
+  StartClientButton: {fileID: 649475265}
 --- !u!4 &1273913099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4694198351695282287, guid: 90af01672290a9740be55211aa2ae9d5, type: 3}
