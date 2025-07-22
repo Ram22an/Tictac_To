@@ -21,14 +21,14 @@ public class GameVisualManager : NetworkBehaviour
     public void GameManager_OnClickedOnGridPosition(object sender,GameManager.OnClickedOnGridPositionEventArgs e)
     {
         Debug.Log("GameManager_OnClickedOnGridPosition");
-        SpawnObjectRpc(e.Classx, e.Classy);
+        SpawnObjectRpc(e.Classx, e.Classy,e.Classplayertype);
     }
     [Rpc(SendTo.Server)]
-    public void SpawnObjectRpc(int x,int y)
+    public void SpawnObjectRpc(int x,int y,GameManager.PlayerType playertype)
     {
         Debug.Log("Spawn Object");
-        Transform Prefab;
-        switch (GameManager.instance.GetLocalPlayerType())
+        Transform Prefab; 
+        switch (playertype)
         {
             default:
             case GameManager.PlayerType.Cross:
